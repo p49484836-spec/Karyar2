@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>کاریار | پلتفرم اتصال کارفرما و کارجو</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23d9643a'/%3E%3Ctext x='50' y='68' font-size='55' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'%3Eک%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f5f2;
+    --surface:#ffffff;
+    --surface-2:#eeece6;
+    --fg:#17160f;
+    --fg-dim:#5c5a4e;
+    --border:#ddd9cd;
+    --accent:#d9643a;
+    --accent-2:#ffb27a;
+    --accent-fg:#fff8f0;
+    --good:#3f7d4f;
+    --good-bg:#e4f2e6;
+    --warn:#b98a1e;
+    --bad:#c0442c;
+    --bad-bg:#fbe6e1;
+    --blue:#3f7d9a;
+    --blue-bg:#e3eef2;
+    --radius:18px;
+    --font:"Vazirmatn","Segoe UI",Tahoma,sans-serif;
+    --mono:"Space Mono",ui-monospace,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121210; --surface:#1b1a16; --surface-2:#242320;
+      --fg:#f3f1e8; --fg-dim:#a9a596; --border:#36342c;
+      --accent:#ef8054; --accent-2:#ffb27a; --accent-fg:#1b1008;
+      --good:#6fbf80; --good-bg:#1c2b1f;
+      --warn:#e0b354; --bad:#e5755a; --bad-bg:#2e1c17;
+      --blue:#79b6d6; --blue-bg:#17262c;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121210; --surface:#1b1a16; --surface-2:#242320;
+    --fg:#f3f1e8; --fg-dim:#a9a596; --border:#36342c;
+    --accent:#ef8054; --accent-2:#ffb27a; --accent-fg:#1b1008;
+    --good:#6fbf80; --good-bg:#1c2b1f;
+    --warn:#e0b354; --bad:#e5755a; --bad-bg:#2e1c17;
+    --blue:#79b6d6; --blue-bg:#17262c;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:var(--font);
+    direction:rtl;
+    padding-left:max(16px, env(safe-area-inset-left,0px));
+    padding-right:max(16px, env(safe-area-inset-right,0px));
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+  h1,h2,h3{font-family:var(--font); font-weight:700; text-wrap:balance; margin:0;}
+  p{margin:0; line-height:1.8;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+  ::selection{background:var(--accent); color:var(--accent-fg);}
+  *:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  .glow{
+    position:fixed; inset:0; z-index:-1;
+    background:
+      radial-gradient(640px 420px at 85% -5%, rgba(217,100,58,.22), transparent 70%),
+      radial-gradient(520px 360px at 5% 10%, rgba(217,100,58,.10), transparent 70%);
+  }
+
+  .wrap{max-width:1080px; margin:0 auto;}
+
+  header.bar{
+    position:sticky; top:0; z-index:20;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; padding-block:16px;
+    background:color-mix(in srgb, var(--bg) 86%, transparent);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-size:1.3rem; font-weight:800;}
+  .brand .mark{
+    width:34px; height:34px; border-radius:9px; flex:none;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    display:flex; align-items:center; justify-content:center;
+    color:var(--accent-fg); font-weight:800; font-size:1rem;
+  }
+  .bar-actions{display:flex; gap:8px; align-items:center;}
+
+  .btn{
+    border:1px solid var(--border); background:var(--surface); color:var(--fg);
+    padding:10px 18px; border-radius:999px; font-size:.92rem; cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, filter .15s ease;
+    font-weight:500;
+  }
+  .btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+  .btn.primary{background:var(--accent); color:var(--accent-fg); border-color:transparent; font-weight:700;}
+  .btn.primary:hover{filter:brightness(1.07);}
+  .btn.ghost{background:transparent;}
+  .btn.danger{color:var(--bad); border-color:var(--bad);}
+  .btn.sm{padding:7px 14px; font-size:.82rem;}
+  .btn:disabled{opacity:.5; cursor:not-allowed; transform:none;}
+
+  .hero{padding-block:52px 36px; display:grid; gap:26px;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-size:.78rem;
+    letter-spacing:.04em; color:var(--fg-dim); border:1px solid var(--border);
+    border-radius:999px; padding:6px 14px; width:fit-content;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--good); flex:none;}
+  .hero h1{font-size:clamp(1.9rem, 6vw, 3rem); line-height:1.3; font-weight:800;}
+  .hero h1 em{font-style:normal; color:var(--accent);}
+  .hero p.lead{max-width:60ch; color:var(--fg-dim); font-size:1.02rem;}
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap;}
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr));
+    gap:1px; background:var(--border); border:1px solid var(--border);
+    border-radius:var(--radius); overflow:hidden; margin-top:10px;
+  }
+  .stat{background:var(--surface); padding:16px; display:flex; flex-direction:column; gap:4px; min-width:0;}
+  .stat b{font-family:var(--mono); font-size:1.4rem;}
+  .stat span{font-size:.76rem; color:var(--fg-dim);}
+
+  section{padding-block:32px;}
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:16px; flex-wrap:wrap;}
+  .section-head h2{font-size:1.4rem;}
+  .section-head p{color:var(--fg-dim); font-size:.88rem;}
+
+  .grid-cards{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:14px;}
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:18px; display:flex; flex-direction:column; gap:10px; min-width:0;
+  }
+  .card h3{font-size:1.02rem; overflow-wrap:break-word;}
+  .card .meta{font-size:.8rem; color:var(--fg-dim); display:flex; gap:10px; flex-wrap:wrap;}
+  .card .desc{color:var(--fg-dim); font-size:.86rem; overflow-wrap:break-word;}
+  .tag{
+    display:inline-flex; align-items:center; white-space:nowrap;
+    font-size:.72rem; padding:3px 10px; border-radius:999px;
+    background:var(--surface-2); color:var(--fg-dim); border:1px solid var(--border);
+  }
+  .tag.open{color:var(--good); background:var(--good-bg); border-color:transparent;}
+  .tag.closed{color:var(--bad); background:var(--bad-bg); border-color:transparent;}
+  .tag.accent{color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, var(--surface-2)); border-color:transparent;}
+
+  footer{
+    border-top:1px solid var(--border); padding-block:22px 34px; margin-top:26px;
+    color:var(--fg-dim); font-size:.8rem;
+    display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+  }
+
+  .modal-backdrop{
+    position:fixed; inset:0; z-index:50; background:rgba(0,0,0,.55);
+    display:flex; align-items:flex-end; justify-content:center;
+  }
+  @media (min-width:640px){ .modal-backdrop{align-items:center; padding:20px;} }
+  .modal{
+    background:var(--surface); border:1px solid var(--border);
+    width:100%; max-width:440px; max-height:92vh; overflow-y:auto;
+    border-radius:20px 20px 0 0;
+    padding:22px max(20px, env(safe-area-inset-right,0px)) max(22px, env(safe-area-inset-bottom,0px)) max(20px, env(safe-area-inset-left,0px));
+    display:flex; flex-direction:column; gap:16px;
+  }
+  @media (min-width:640px){ .modal{border-radius:20px;} }
+  .modal-head{display:flex; align-items:center; justify-content:space-between;}
+  .modal-head h2{font-size:1.2rem;}
+  .icon-btn{background:none; border:none; color:var(--fg-dim); font-size:1.3rem; cursor:pointer; line-height:1; padding:4px;}
+  .tabs{display:flex; background:var(--surface-2); border-radius:999px; padding:4px; gap:4px;}
+  .tabs button{flex:1; border:none; background:transparent; color:var(--fg-dim); padding:9px; border-radius:999px; font-size:.88rem; cursor:pointer;}
+  .tabs button.active{background:var(--surface); color:var(--fg); font-weight:700; box-shadow:0 1px 2px rgba(0,0,0,.1);}
+
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field label{font-size:.82rem; color:var(--fg-dim);}
+  .field input, .field select{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:10px;
+    padding:11px 12px; font-size:.95rem; color:var(--fg); font-family:inherit; width:100%;
+  }
+  .role-pick{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .role-pick .opt{
+    display:flex; flex-direction:column; gap:4px; border:1px solid var(--border);
+    border-radius:12px; padding:12px; cursor:pointer; font-size:.86rem; color:var(--fg-dim);
+  }
+  .role-pick input{accent-color:var(--accent);}
+  .role-pick .opt.picked{border-color:var(--accent); color:var(--fg); background:color-mix(in srgb, var(--accent) 8%, transparent);}
+  .role-pick b{color:var(--fg); font-size:.9rem;}
+
+  .divider{display:flex; align-items:center; gap:10px; color:var(--fg-dim); font-size:.78rem;}
+  .divider::before, .divider::after{content:""; flex:1; height:1px; background:var(--border);}
+
+  .google-btn{
+    display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
+    padding:11px; border-radius:10px; border:1px solid var(--border); background:var(--surface);
+    cursor:pointer; font-size:.9rem; color:var(--fg);
+  }
+  .google-btn svg{width:18px; height:18px; flex:none;}
+  .error-msg{color:var(--bad); font-size:.82rem; min-height:1.1em;}
+  .hint{font-size:.76rem; color:var(--fg-dim);}
+
+  .acct-list{display:flex; flex-direction:column; border:1px solid var(--border); border-radius:12px; overflow:hidden;}
+  .acct-row{
+    display:flex; align-items:center; gap:12px; padding:12px;
+    background:var(--surface); cursor:pointer; border:none; width:100%; text-align:right; font-family:inherit;
+  }
+  .acct-row:hover{background:var(--surface-2);}
+  .acct-row + .acct-row{border-top:1px solid var(--border);}
+  .avatar{
+    width:34px; height:34px; border-radius:50%; flex:none;
+    display:flex; align-items:center; justify-content:center; font-size:.85rem; font-weight:700; color:#fff;
+  }
+  .acct-row .info{display:flex; flex-direction:column; gap:2px; overflow:hidden; min-width:0;}
+  .acct-row .info b{font-size:.88rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .acct-row .info span{font-size:.76rem; color:var(--fg-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; direction:ltr; text-align:right;}
+
+  .app-shell{display:none;}
+  .app-shell.active{display:block;}
+  .site-shell.hidden-when-app{display:none;}
+
+  .topnav{
+    position:sticky; top:0; z-index:20;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding-block:14px; background:color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .user-chip{display:flex; align-items:center; gap:10px;}
+  .user-chip .info{display:flex; flex-direction:column; line-height:1.2; min-width:0;}
+  .user-chip b{font-size:.86rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:30vw;}
+
+  .role-badge{font-size:.66rem; padding:2px 9px; border-radius:999px; font-weight:700; display:inline-block; width:fit-content;}
+  .role-badge.customer{background:var(--blue-bg); color:var(--blue);}
+  .role-badge.vendor{background:var(--good-bg); color:var(--good);}
+  .role-badge.operator{background:color-mix(in srgb, var(--accent) 20%, var(--surface-2)); color:var(--accent);}
+  .role-badge.admin{background:var(--bad-bg); color:var(--bad);}
+
+  .dash-tabs{display:flex; gap:6px; overflow-x:auto; padding-block:14px; border-bottom:1px solid var(--border); -webkit-overflow-scrolling:touch;}
+  .dash-tabs button{
+    white-space:nowrap; border:1px solid var(--border); background:var(--surface);
+    padding:9px 16px; border-radius:999px; font-size:.86rem; cursor:pointer; color:var(--fg-dim); flex:none;
+  }
+  .dash-tabs button.active{background:var(--accent); color:var(--accent-fg); border-color:transparent; font-weight:700;}
+
+  .panel{padding-block:22px; display:none;}
+  .panel.active{display:block;}
+  .panel-head{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap;}
+  .panel-head h2{font-size:1.25rem;}
+
+  .form-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:20px; display:flex; flex-direction:column; gap:14px; max-width:560px;
+  }
+  textarea{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:10px;
+    padding:11px 12px; font-size:.92rem; color:var(--fg); font-family:inherit; resize:vertical; min-height:100px; width:100%;
+  }
+
+  table{width:100%; border-collapse:collapse; font-size:.86rem; min-width:420px;}
+  thead th{text-align:right; color:var(--fg-dim); font-weight:600; font-size:.76rem; padding-bottom:10px; border-bottom:1px solid var(--border); white-space:nowrap;}
+  tbody td{padding:12px 4px; border-bottom:1px solid var(--border); vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  .table-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); padding:4px 14px;}
+
+  select.role-select{background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:6px 8px; font-size:.8rem; color:var(--fg); font-family:inherit;}
+
+  .empty{border:1px dashed var(--border); border-radius:var(--radius); padding:28px 16px; text-align:center; color:var(--fg-dim); font-size:.88rem;}
+
+  .toast{
+    position:fixed; bottom:max(20px, env(safe-area-inset-bottom,0px)); left:50%;
+    transform:translateX(-50%) translateY(140%);
+    background:var(--fg); color:var(--bg); padding:12px 20px; border-radius:999px;
+    font-size:.85rem; z-index:80; transition:transform .25s ease; max-width:88vw; text-align:center;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){ *{transition:none!important; animation:none!important;} }
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<div id="siteShell" class="site-shell">
+  <div class="wrap">
+    <header class="bar">
+      <div class="brand"><span class="mark">ک</span>کاریار</div>
+      <div class="bar-actions">
+        <button class="btn ghost" id="btnOpenLogin" type="button">ورود</button>
+        <button class="btn primary" id="btnOpenRegister" type="button">ثبت‌نام رایگان</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <span class="eyebrow"><span class="dot"></span><span id="heroStat">در حال بارگذاری…</span></span>
+      <h1>کسایی که <em>شغل دارن</em><br>اینجا رشد می‌کنن.</h1>
+      <p class="lead">کاریار جایی‌ست که کارفرماها پروژه و موقعیت شغلی ثبت می‌کنن و کارجوهای حرفه‌ای براشون درخواست می‌دن. سریع، شفاف، بدون واسطه.</p>
+      <div class="hero-ctas">
+        <button class="btn primary" id="btnHeroStart" type="button">شروع کن</button>
+        <button class="btn ghost" id="btnHeroJobs" type="button">فرصت‌های شغلی را ببین</button>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b id="statJobs">۰</b><span>فرصت شغلی باز</span></div>
+        <div class="stat"><b id="statUsers">۰</b><span>عضو کاریار</span></div>
+        <div class="stat"><b>۱۲ دقیقه</b><span>میانگین زمان ثبت‌نام</span></div>
+      </div>
+    </section>
+
+    <section id="jobsPreview">
+      <div class="section-head">
+        <h2>تازه‌ترین فرصت‌ها</h2>
+        <p>برای درخواست دادن وارد حساب شو</p>
+      </div>
+      <div id="jobsPreviewGrid" class="grid-cards"></div>
+    </section>
+
+    <footer>
+      <span>© کاریار — یک دموی طراحی</span>
+      <span>ساخته‌شده برای کسایی که شغل دارن</span>
+    </footer>
+  </div>
+</div>
+
+<div id="appShell" class="app-shell">
+  <div class="wrap">
+    <nav class="topnav">
+      <div class="brand"><span class="mark">ک</span>کاریار</div>
+      <div class="user-chip">
+        <div class="avatar" id="navAvatar">?</div>
+        <div class="info">
+          <b id="navName">—</b>
+          <span class="role-badge" id="navRoleBadge">—</span>
+        </div>
+        <button class="btn sm ghost" id="btnLogout" type="button">خروج</button>
+      </div>
+    </nav>
+
+    <div class="dash-tabs" id="dashTabs"></div>
+
+    <div class="panel" id="panel-browse">
+      <div class="panel-head"><h2>فرصت‌های شغلی</h2><p class="hint" id="browseCount"></p></div>
+      <div id="browseGrid" class="grid-cards"></div>
+    </div>
+
+    <div class="panel" id="panel-myApps">
+      <div class="panel-head"><h2>درخواست‌های من</h2></div>
+      <div id="myAppsWrap"></div>
+    </div>
+
+    <div class="panel" id="panel-post">
+      <div class="panel-head"><h2>ثبت فرصت شغلی جدید</h2></div>
+      <form class="form-card" id="jobForm">
+        <div class="field">
+          <label for="jTitle">عنوان شغل</label>
+          <input id="jTitle" required placeholder="مثلاً توسعه‌دهنده فرانت‌اند">
+        </div>
+        <div class="field">
+          <label for="jLoc">محل / نوع همکاری</label>
+          <input id="jLoc" required placeholder="مثلاً تهران، دورکاری">
+        </div>
+        <div class="field">
+          <label for="jDesc">توضیحات</label>
+          <textarea id="jDesc" required placeholder="شرح وظایف، مهارت‌های موردنیاز و شرایط همکاری را بنویس"></textarea>
+        </div>
+        <button class="btn primary" type="submit">ثبت فرصت شغلی</button>
+      </form>
+    </div>
+
+    <div class="panel" id="panel-myJobs">
+      <div class="panel-head"><h2>فرصت‌های ثبت‌شده من</h2></div>
+      <div id="myJobsWrap"></div>
+    </div>
+
+    <div class="panel" id="panel-admin">
+      <div class="panel-head">
+        <h2>مدیریت کاربران</h2>
+        <p class="hint">تغییر نقش هر کاربر از همین‌جا</p>
+      </div>
+      <div class="table-wrap" style="margin-bottom:18px;">
+        <table>
+          <thead><tr><th>نام</th><th>نام‌کاربری</th><th>ایمیل</th><th>نقش فعلی</th><th>تغییر نقش</th></tr></thead>
+          <tbody id="usersTbody"></tbody>
+        </table>
+      </div>
+      <div class="panel-head"><h2>همه‌ی فرصت‌های شغلی</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>عنوان</th><th>کارفرما</th><th>وضعیت</th><th>درخواست</th><th></th></tr></thead>
+          <tbody id="allJobsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="authBackdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="modal-head">
+      <h2 id="authTitle">ورود به کاریار</h2>
+      <button class="icon-btn" id="btnCloseAuth" type="button" aria-label="بستن">✕</button>
+    </div>
+
+    <div class="tabs" id="authTabs">
+      <button type="button" data-tab="login">ورود</button>
+      <button type="button" data-tab="register">ثبت‌نام</button>
+    </div>
+
+    <div id="googleChooser" hidden>
+      <p class="hint" style="margin-bottom:10px;">یک حساب را برای ادامه انتخاب کن</p>
+      <div class="acct-list" id="googleAcctList"></div>
+      <button class="btn ghost sm" id="btnBackFromGoogle" type="button" style="margin-top:10px;width:100%;">بازگشت</button>
+      <p class="hint" style="margin-top:10px;">این یک شبیه‌سازی نمایشی است؛ برای ورود واقعی با گوگل به یک بک‌اند متصل به OAuth واقعی نیاز است.</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="field" style="margin-bottom:12px;">
+        <label for="liUser">نام کاربری یا ایمیل</label>
+        <input id="liUser" required autocomplete="username">
+      </div>
+      <div class="field" style="margin-bottom:6px;">
+        <label for="liPass">رمز عبور</label>
+        <input id="liPass" type="password" required autocomplete="current-password">
+      </div>
+      <p class="error-msg" id="loginError"></p>
+      <button class="btn primary" type="submit" style="width:100%;">ورود</button>
+      <div class="divider" style="margin:16px 0;">یا</div>
+      <button type="button" class="google-btn" id="btnShowGoogle">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.6 29.3 35.5 24 35.5c-6.4 0-11.5-5.2-11.5-11.5S17.6 12.5 24 12.5c2.9 0 5.6 1.1 7.6 2.9l5.7-5.7C33.9 6.5 29.2 4.5 24 4.5 13.2 4.5 4.5 13.2 4.5 24S13.2 43.5 24 43.5 43.5 34.8 43.5 24c0-1.2-.1-2.4-.3-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 19 12.5 24 12.5c2.9 0 5.6 1.1 7.6 2.9l5.7-5.7C33.9 6.5 29.2 4.5 24 4.5c-7.7 0-14.3 4.3-17.7 10.2z"/><path fill="#4CAF50" d="M24 43.5c5.1 0 9.8-2 13.2-5.1l-6.1-5.2c-2 1.4-4.5 2.3-7.1 2.3-5.3 0-9.7-2.9-11.4-7.2l-6.5 5C9.6 39.3 16.3 43.5 24 43.5z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.1 5.2C40.9 35.9 43.5 30.4 43.5 24c0-1.2-.1-2.4-.3-3.5z"/></svg>
+        ورود با گوگل
+      </button>
+      <p class="hint" style="margin-top:14px; text-align:center;">حساب نداری؟ <a href="#" id="linkToRegister" style="color:var(--accent); text-decoration:none;">ثبت‌نام کن</a></p>
+    </form>
+
+    <form id="registerForm" hidden>
+      <div class="field" style="margin-bottom:12px;">
+        <label for="rName">نام خود را وارد کنید</label>
+        <input id="rName" required autocomplete="name">
+      </div>
+      <div class="field" style="margin-bottom:12px;">
+        <label for="rAge">سن خود را وارد کنید</label>
+        <input id="rAge" type="number" min="15" max="100" required>
+      </div>
+      <div class="field" style="margin-bottom:12px;">
+        <label for="rEmail">ایمیل خود را وارد کنید</label>
+        <input id="rEmail" type="email" required autocomplete="email" dir="ltr">
+      </div>
+      <div class="field" style="margin-bottom:12px;">
+        <label for="rPass">رمز خود را وارد کنید</label>
+        <input id="rPass" type="password" required minlength="4" autocomplete="new-password">
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label for="rUsername">نام کاربری را وارد کنید</label>
+        <input id="rUsername" required autocomplete="username" dir="ltr">
+      </div>
+      <div class="field" style="margin-bottom:6px;">
+        <label>ورود به عنوان مشتری یا فروشنده؟</label>
+        <div class="role-pick" id="rolePick">
+          <label class="opt picked"><input type="radio" name="rRole" value="customer" checked><b>مشتری</b><span>دنبال فرصت شغلی می‌گردم</span></label>
+          <label class="opt"><input type="radio" name="rRole" value="vendor"><b>فروشنده</b><span>فرصت شغلی ثبت می‌کنم</span></label>
+        </div>
+      </div>
+      <p class="error-msg" id="registerError"></p>
+      <button class="btn primary" type="submit" style="width:100%; margin-top:8px;">تأیید</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var DB_KEY = "karyar_db_v2";
+  var SESSION_KEY = "karyar_session_v2";
+
+  function safeGet(key){ try{ return localStorage.getItem(key); }catch(e){ return null; } }
+  function safeSet(key,val){ try{ localStorage.setItem(key,val); return true; }catch(e){ return false; } }
+  function safeRemove(key){ try{ localStorage.removeItem(key); }catch(e){} }
+
+  function addUserRaw(db, u){
+    var user = Object.assign({ id: db.nextUserId++, createdAt: Date.now() }, u);
+    db.users.push(user);
+    return user;
+  }
+  function addJobRaw(db, j){
+    var job = Object.assign({ id: db.nextJobId++, status:"open", createdAt: Date.now() }, j);
+    db.jobs.push(job);
+    return job;
+  }
+
+  function seedDB(){
+    var db = { users: [], jobs: [], applications: [], nextUserId: 1, nextJobId: 1, nextAppId: 1 };
+    var vendor = addUserRaw(db, {
+      name:"آرمان رستمی", age:34, email:"vendor.demo@example.com",
+      username:"arman_tech", password: hashPass("demo1234"), role:"vendor", via:"local"
+    });
+    addJobRaw(db, { vendorId:vendor.id, title:"توسعه‌دهنده فرانت‌اند React", location:"تهران، دورکاری",
+      description:"ساخت رابط کاربری برای محصول اصلی تیم، همکاری نزدیک با طراح UX و بک‌اند." });
+    addJobRaw(db, { vendorId:vendor.id, title:"طراح UI/UX", location:"کرج، حضوری",
+      description:"طراحی تجربه کاربری اپلیکیشن موبایل و وب، تهیه پروتوتایپ و تست کاربری." });
+    addJobRaw(db, { vendorId:vendor.id, title:"کارشناس پشتیبانی مشتریان", location:"اصفهان، ترکیبی",
+      description:"پاسخ‌گویی به مشتریان، پیگیری تیکت‌ها و هماهنگی با تیم فنی." });
+    return db;
+  }
+
+  function hashPass(pw){
+    var h = 0;
+    for(var i=0;i<pw.length;i++){ h = (Math.imul(31,h) + pw.charCodeAt(i)) | 0; }
+    return "h" + h + "_" + pw.length;
+  }
+
+  function loadDB(){
+    var raw = safeGet(DB_KEY);
+    if(raw){
+      try{
+        var parsed = JSON.parse(raw);
+        if(parsed && Array.isArray(parsed.users) && Array.isArray(parsed.jobs) && Array.isArray(parsed.applications)){
+          return parsed;
+        }
+      }catch(e){}
+    }
+    var fresh = seedDB();
+    safeSet(DB_KEY, JSON.stringify(fresh));
+    return fresh;
+  }
+  function persist(){ safeSet(DB_KEY, JSON.stringify(db)); }
+
+  var db = loadDB();
+
+  function findByEmail(email){
+    var needle = String(email || "").toLowerCase();
+    for(var i=0;i<db.users.length;i++){ if(db.users[i].email.toLowerCase() === needle) return db.users[i]; }
+    return null;
+  }
+  function findByUsername(username){
+    var needle = String(username || "").toLowerCase();
+    for(var i=0;i<db.users.length;i++){ if(db.users[i].username.toLowerCase() === needle) return db.users[i]; }
+    return null;
+  }
+  function findUserById(id){
+    for(var i=0;i<db.users.length;i++){ if(db.users[i].id === id) return db.users[i]; }
+    return null;
+  }
+
+  function currentUser(){
+    var raw = safeGet(SESSION_KEY);
+    if(!raw) return null;
+    return findUserById(Number(raw));
+  }
+  function setSession(id){ safeSet(SESSION_KEY, String(id)); }
+  function clearSession(){ safeRemove(SESSION_KEY); }
+
+  var RESERVED_OPERATOR_USERNAME = "raven";
+
+  function roleLabel(role){
+    return { customer:"مشتری", vendor:"فروشنده", operator:"اوپراتور", admin:"مدیر" }[role] || role;
+  }
+
+  var toastEl = document.getElementById("toast");
+  var toastTimer = null;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    if(toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove("show"); }, 2600);
+  }
+
+  function toFa(n){
+    var digits = ["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];
+    return String(n).replace(/[0-9]/g, function(d){ return digits[d]; });
+  }
+  function escapeHtml(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function truncate(s,n){ s = String(s||""); return s.length>n ? s.slice(0,n)+"…" : s; }
+  function vendorName(vendorId){
+    var v = findUserById(vendorId);
+    return v ? v.name : "کارفرمای حذف‌شده";
+  }
+
+  /* ---------- auth modal ---------- */
+  var authBackdrop = document.getElementById("authBackdrop");
+  var loginForm = document.getElementById("loginForm");
+  var registerForm = document.getElementById("registerForm");
+  var googleChooser = document.getElementById("googleChooser");
+  var authTabs = document.getElementById("authTabs");
+
+  function openAuth(tab){
+    authBackdrop.hidden = false;
+    hideGoogleChooser();
+    setAuthTab(tab || "login");
+  }
+  function closeAuth(){
+    authBackdrop.hidden = true;
+    document.getElementById("loginError").textContent = "";
+    document.getElementById("registerError").textContent = "";
+    loginForm.reset();
+    registerForm.reset();
+    resetRolePickStyles();
+  }
+  authBackdrop.addEventListener("click", function(e){ if(e.target === authBackdrop) closeAuth(); });
+  document.getElementById("btnCloseAuth").addEventListener("click", closeAuth);
+  document.getElementById("btnOpenLogin").addEventListener("click", function(){ openAuth("login"); });
+  document.getElementById("btnOpenRegister").addEventListener("click", function(){ openAuth("register"); });
+  document.getElementById("btnHeroStart").addEventListener("click", function(){ openAuth("register"); });
+  document.getElementById("btnHeroJobs").addEventListener("click", function(){
+    var el = document.getElementById("jobsPreview");
+    if(el) el.scrollIntoView({ behavior:"smooth" });
+  });
+  document.getElementById("linkToRegister").addEventListener("click", function(e){
+    e.preventDefault(); setAuthTab("register");
+  });
+
+  function setAuthTab(tab){
+    hideGoogleChooser();
+    var btns = authTabs.querySelectorAll("button");
+    for(var i=0;i<btns.length;i++){ btns[i].classList.toggle("active", btns[i].dataset.tab === tab); }
+    document.getElementById("authTitle").textContent = tab === "login" ? "ورود به کاریار" : "ثبت‌نام در کاریار";
+    loginForm.hidden = tab !== "login";
+    registerForm.hidden = tab !== "register";
+  }
+  var authTabBtns = authTabs.querySelectorAll("button");
+  for(var ti=0; ti<authTabBtns.length; ti++){
+    authTabBtns[ti].addEventListener("click", function(){ setAuthTab(this.dataset.tab); });
+  }
+  setAuthTab("login");
+
+  /* role picker visual state (no :has() dependency) */
+  function resetRolePickStyles(){
+    var opts = document.querySelectorAll("#rolePick .opt");
+    opts.forEach(function(opt){
+      var input = opt.querySelector("input");
+      opt.classList.toggle("picked", input.checked);
+    });
+  }
+  document.querySelectorAll('#rolePick input[name="rRole"]').forEach(function(input){
+    input.addEventListener("change", resetRolePickStyles);
+  });
+
+  /* ---------- demo google chooser (placeholder accounts only) ---------- */
+  var DEMO_GOOGLE_ACCOUNTS = [
+    { name:"حساب نمایشی یک", email:"demo.user1@example.com", color:"#d9643a" },
+    { name:"حساب نمایشی دو", email:"demo.user2@example.com", color:"#3f7d9a" },
+    { name:"حساب نمایشی سه", email:"demo.user3@example.com", color:"#6a8f4e" }
+  ];
+  document.getElementById("btnShowGoogle").addEventListener("click", showGoogleChooser);
+  document.getElementById("btnBackFromGoogle").addEventListener("click", hideGoogleChooser);
+
+  function showGoogleChooser(){
+    var list = document.getElementById("googleAcctList");
+    list.innerHTML = "";
+    DEMO_GOOGLE_ACCOUNTS.forEach(function(acc){
+      var btn = document.createElement("button");
+      btn.className = "acct-row";
+      btn.type = "button";
+      var avatar = document.createElement("span");
+      avatar.className = "avatar";
+      avatar.style.background = acc.color;
+      avatar.textContent = acc.name.charAt(0);
+      var info = document.createElement("span");
+      info.className = "info";
+      var b = document.createElement("b"); b.textContent = acc.name;
+      var span = document.createElement("span"); span.textContent = acc.email;
+      info.appendChild(b); info.appendChild(span);
+      btn.appendChild(avatar); btn.appendChild(info);
+      btn.addEventListener("click", function(){ googleSignIn(acc); });
+      list.appendChild(btn);
+    });
+    googleChooser.hidden = false;
+    loginForm.hidden = true;
+    registerForm.hidden = true;
+  }
+  function hideGoogleChooser(){
+    googleChooser.hidden = true;
+    var active = authTabs.querySelector("button.active");
+    setAuthTabQuiet(active ? active.dataset.tab : "login");
+  }
+  function setAuthTabQuiet(tab){
+    var btns = authTabs.querySelectorAll("button");
+    for(var i=0;i<btns.length;i++){ btns[i].classList.toggle("active", btns[i].dataset.tab === tab); }
+    document.getElementById("authTitle").textContent = tab === "login" ? "ورود به کاریار" : "ثبت‌نام در کاریار";
+    loginForm.hidden = tab !== "login";
+    registerForm.hidden = tab !== "register";
+  }
+
+  function googleSignIn(acc){
+    var existing = findByEmail(acc.email);
+    if(existing){
+      setSession(existing.id);
+      closeAuth();
+      toast("خوش آمدی، " + existing.name);
+      enterApp();
+      return;
+    }
+    var username = acc.email.split("@")[0].replace(/[^a-z0-9_]/gi, "");
+    var base = username, n = 1;
+    while(findByUsername(username)){ username = base + n; n++; }
+    var role = username.toLowerCase() === RESERVED_OPERATOR_USERNAME ? "operator" : "customer";
+    var user = addUserRaw(db, { name:acc.name, age:null, email:acc.email, username:username, password:null, role:role, via:"google" });
+    persist();
+    setSession(user.id);
+    closeAuth();
+    toast(role === "operator" ? "خوش آمدی، اوپراتور " + user.name : "ثبت‌نام با گوگل انجام شد، خوش آمدی " + user.name);
+    enterApp();
+  }
+
+  /* ---------- login / register ---------- */
+  loginForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    var idf = document.getElementById("liUser").value.trim();
+    var pass = document.getElementById("liPass").value;
+    var user = findByEmail(idf) || findByUsername(idf);
+    var errEl = document.getElementById("loginError");
+    if(!idf || !pass){ errEl.textContent = "همه‌ی فیلدها را پر کن."; return; }
+    if(!user || user.password === null){ errEl.textContent = "این حساب با رمز عبور ثبت نشده یا وجود ندارد."; return; }
+    if(hashPass(pass) !== user.password){ errEl.textContent = "نام کاربری/ایمیل یا رمز عبور اشتباه است."; return; }
+    errEl.textContent = "";
+    setSession(user.id);
+    closeAuth();
+    toast("خوش آمدی، " + user.name);
+    enterApp();
+  });
+
+  registerForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    var name = document.getElementById("rName").value.trim();
+    var age = Number(document.getElementById("rAge").value);
+    var email = document.getElementById("rEmail").value.trim();
+    var pass = document.getElementById("rPass").value;
+    var username = document.getElementById("rUsername").value.trim();
+    var roleInput = document.querySelector('input[name="rRole"]:checked');
+    var errEl = document.getElementById("registerError");
+
+    if(!name || !email || !pass || !username || !age){ errEl.textContent = "همه‌ی فیلدها را پر کن."; return; }
+    if(!roleInput){ errEl.textContent = "یک نقش انتخاب کن."; return; }
+    if(age < 15 || age > 100){ errEl.textContent = "سن معتبر وارد کن."; return; }
+    if(pass.length < 4){ errEl.textContent = "رمز عبور باید حداقل ۴ کاراکتر باشد."; return; }
+    if(findByEmail(email)){ errEl.textContent = "این ایمیل قبلاً ثبت شده است."; return; }
+    if(findByUsername(username)){ errEl.textContent = "این نام کاربری قبلاً گرفته شده است."; return; }
+
+    var role = roleInput.value;
+    if(username.toLowerCase() === RESERVED_OPERATOR_USERNAME){ role = "operator"; }
+
+    var user = addUserRaw(db, { name:name, age:age, email:email, username:username, password:hashPass(pass), role:role, via:"local" });
+    persist();
+    errEl.textContent = "";
+    setSession(user.id);
+    closeAuth();
+    toast(role === "operator" ? "ثبت‌نام شد — نقش اوپراتور فعال است، خوش آمدی " + name : "ثبت‌نام با موفقیت انجام شد، خوش آمدی " + name);
+    enterApp();
+  });
+
+  document.getElementById("btnLogout").addEventListener("click", function(){
+    clearSession();
+    document.getElementById("appShell").classList.remove("active");
+    document.getElementById("siteShell").classList.remove("hidden-when-app");
+    renderMarketing();
+    toast("از حساب خارج شدی");
+  });
+
+  /* ---------- marketing (logged-out) ---------- */
+  function renderMarketing(){
+    var openCount = db.jobs.filter(function(j){ return j.status === "open"; }).length;
+    document.getElementById("statJobs").textContent = toFa(openCount);
+    document.getElementById("statUsers").textContent = toFa(db.users.length);
+    document.getElementById("heroStat").textContent = "الان " + toFa(openCount) + " فرصت شغلی فعال";
+    var grid = document.getElementById("jobsPreviewGrid");
+    grid.innerHTML = "";
+    var recent = db.jobs.slice(-6).reverse();
+    if(recent.length === 0){
+      grid.innerHTML = '<div class="empty">هنوز فرصت شغلی‌ای ثبت نشده.</div>';
+      return;
+    }
+    recent.forEach(function(job){ grid.appendChild(jobCard(job, { showApply:false })); });
+  }
+
+  function jobCard(job, opts){
+    opts = opts || {};
+    var card = document.createElement("div");
+    card.className = "card";
+
+    var head = document.createElement("div");
+    head.style.cssText = "display:flex;justify-content:space-between;gap:8px;align-items:flex-start;";
+    var h3 = document.createElement("h3"); h3.textContent = job.title;
+    var statusTag = document.createElement("span");
+    statusTag.className = "tag " + (job.status === "open" ? "open" : "closed");
+    statusTag.textContent = job.status === "open" ? "باز" : "بسته";
+    head.appendChild(h3); head.appendChild(statusTag);
+
+    var meta = document.createElement("p"); meta.className = "meta";
+    meta.innerHTML =
+      '<span>🏢 ' + escapeHtml(vendorName(job.vendorId)) + '</span>' +
+      '<span>📍 ' + escapeHtml(job.location) + '</span>';
+
+    var desc = document.createElement("p"); desc.className = "desc";
+    desc.textContent = truncate(job.description, 120);
+
+    card.appendChild(head); card.appendChild(meta); card.appendChild(desc);
+
+    if(opts.showApply){
+      var already = db.applications.some(function(a){ return a.jobId===job.id && a.customerId===opts.customerId; });
+      var btnWrap = document.createElement("div");
+      var btn = document.createElement("button");
+      btn.className = "btn sm" + (already ? "" : " primary");
+      btn.textContent = already ? "درخواست ارسال شد" : "درخواست دادن";
+      btn.disabled = already;
+      btn.type = "button";
+      if(!already){
+        btn.addEventListener("click", function(){ applyToJob(job.id, opts.customerId); });
+      }
+      btnWrap.appendChild(btn);
+      card.appendChild(btnWrap);
+    }
+    return card;
+  }
+
+  /* ---------- app (logged-in) ---------- */
+  var TAB_DEFS = {
+    customer: [{ id:"browse", label:"فرصت‌های شغلی" }, { id:"myApps", label:"درخواست‌های من" }],
+    vendor:   [{ id:"post", label:"ثبت فرصت جدید" }, { id:"myJobs", label:"فرصت‌های من" }],
+    operator: [{ id:"admin", label:"مدیریت" }, { id:"browse", label:"فرصت‌های شغلی" }, { id:"post", label:"ثبت فرصت جدید" }],
+    admin:    [{ id:"admin", label:"مدیریت" }, { id:"browse", label:"فرصت‌های شغلی" }, { id:"post", label:"ثبت فرصت جدید" }]
+  };
+
+  function enterApp(){
+    document.getElementById("siteShell").classList.add("hidden-when-app");
+    document.getElementById("appShell").classList.add("active");
+    renderApp();
+  }
+
+  function renderApp(){
+    var user = currentUser();
+    if(!user){
+      document.getElementById("appShell").classList.remove("active");
+      document.getElementById("siteShell").classList.remove("hidden-when-app");
+      renderMarketing();
+      return;
+    }
+
+    document.getElementById("navName").textContent = user.name;
+    var avatarEl = document.getElementById("navAvatar");
+    avatarEl.textContent = user.name.charAt(0) || "?";
+    avatarEl.style.background = "linear-gradient(135deg, var(--accent), var(--accent-2))";
+    avatarEl.style.color = "var(--accent-fg)";
+    var badge = document.getElementById("navRoleBadge");
+    badge.textContent = roleLabel(user.role);
+    badge.className = "role-badge " + user.role;
+
+    var tabs = TAB_DEFS[user.role] || TAB_DEFS.customer;
+    var tabsEl = document.getElementById("dashTabs");
+    tabsEl.innerHTML = "";
+    tabs.forEach(function(t, i){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = t.label;
+      btn.dataset.panel = t.id;
+      if(i===0) btn.classList.add("active");
+      btn.addEventListener("click", function(){ showPanel(t.id); });
+      tabsEl.appendChild(btn);
+    });
+    showPanel(tabs[0].id);
+
+    renderBrowse(user);
+    renderMyApps(user);
+    renderMyJobs(user);
+    if(user.role === "operator" || user.role === "admin"){ renderAdmin(user); }
+  }
+
+  function showPanel(id){
+    document.querySelectorAll(".panel").forEach(function(p){ p.classList.remove("active"); });
+    var panel = document.getElementById("panel-"+id);
+    if(panel) panel.classList.add("active");
+    document.querySelectorAll("#dashTabs button").forEach(function(b){
+      b.classList.toggle("active", b.dataset.panel === id);
+    });
+  }
+
+  function renderBrowse(user){
+    var grid = document.getElementById("browseGrid");
+    grid.innerHTML = "";
+    var openJobs = db.jobs.filter(function(j){ return j.status === "open"; });
+    document.getElementById("browseCount").textContent = toFa(openJobs.length) + " فرصت باز";
+    if(openJobs.length === 0){
+      grid.innerHTML = '<div class="empty">فعلاً فرصت شغلی باز وجود ندارد.</div>';
+      return;
+    }
+    openJobs.slice().reverse().forEach(function(job){
+      grid.appendChild(jobCard(job, { showApply: user.role === "customer", customerId: user.id }));
+    });
+  }
+
+  function applyToJob(jobId, customerId){
+    var already = db.applications.some(function(a){ return a.jobId===jobId && a.customerId===customerId; });
+    if(already) return;
+    db.applications.push({ id: db.nextAppId++, jobId: jobId, customerId: customerId, status:"pending", createdAt: Date.now() });
+    persist();
+    toast("درخواست شما ثبت شد");
+    var user = currentUser();
+    if(user){ renderBrowse(user); renderMyApps(user); }
+  }
+
+  function renderMyApps(user){
+    var wrap = document.getElementById("myAppsWrap");
+    if(user.role !== "customer"){ wrap.innerHTML = ""; return; }
+    var apps = db.applications.filter(function(a){ return a.customerId === user.id; });
+    if(apps.length === 0){
+      wrap.innerHTML = '<div class="empty">هنوز برای هیچ فرصتی درخواست نداده‌ای.</div>';
+      return;
+    }
+    var table = document.createElement("div"); table.className = "table-wrap";
+    var html = '<table><thead><tr><th>عنوان شغل</th><th>کارفرما</th><th>وضعیت</th></tr></thead><tbody>';
+    apps.forEach(function(a){
+      var job = db.jobs.find(function(j){ return j.id === a.jobId; });
+      if(!job) return;
+      html += '<tr><td>'+escapeHtml(job.title)+'</td><td>'+escapeHtml(vendorName(job.vendorId))+'</td>' +
+        '<td><span class="tag accent">در انتظار بررسی</span></td></tr>';
+    });
+    html += '</tbody></table>';
+    table.innerHTML = html;
+    wrap.innerHTML = "";
+    wrap.appendChild(table);
+  }
+
+  document.getElementById("jobForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var user = currentUser();
+    if(!user) return;
+    var title = document.getElementById("jTitle").value.trim();
+    var location = document.getElementById("jLoc").value.trim();
+    var description = document.getElementById("jDesc").value.trim();
+    if(!title || !location || !description) return;
+    addJobRaw(db, { vendorId:user.id, title:title, location:location, description:description });
+    persist();
+    e.target.reset();
+    toast("فرصت شغلی ثبت شد");
+    showPanel("myJobs");
+    renderMyJobs(user);
+    renderBrowse(user);
+    renderMarketing();
+  });
+
+  function renderMyJobs(user){
+    var wrap = document.getElementById("myJobsWrap");
+    var isVendorLike = user.role === "vendor" || user.role === "operator" || user.role === "admin";
+    if(!isVendorLike){ wrap.innerHTML = ""; return; }
+    var jobs = db.jobs.filter(function(j){ return j.vendorId === user.id; });
+    if(jobs.length === 0){
+      wrap.innerHTML = '<div class="empty">هنوز فرصت شغلی‌ای ثبت نکرده‌ای.</div>';
+      return;
+    }
+    var table = document.createElement("div"); table.className = "table-wrap";
+    var html = '<table><thead><tr><th>عنوان</th><th>وضعیت</th><th>درخواست‌ها</th><th></th></tr></thead><tbody>';
+    jobs.forEach(function(j){
+      var count = db.applications.filter(function(a){ return a.jobId === j.id; }).length;
+      html += '<tr><td>'+escapeHtml(j.title)+'</td>' +
+        '<td><span class="tag '+(j.status==="open"?"open":"closed")+'">'+(j.status==="open"?"باز":"بسته")+'</span></td>' +
+        '<td>'+toFa(count)+' نفر</td>' +
+        '<td><button class="btn sm ghost" data-toggle="'+j.id+'" type="button">'+(j.status==="open"?"بستن":"باز کردن")+'</button></td></tr>';
+    });
+    html += '</tbody></table>';
+    table.innerHTML = html;
+    wrap.innerHTML = "";
+    wrap.appendChild(table);
+    wrap.querySelectorAll("[data-toggle]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var id = Number(btn.dataset.toggle);
+        var job = db.jobs.find(function(j){ return j.id === id; });
+        if(!job) return;
+        job.status = job.status === "open" ? "closed" : "open";
+        persist();
+        renderMyJobs(user);
+        renderBrowse(user);
+        renderMarketing();
+      });
+    });
+  }
+
+  function renderAdmin(user){
+    var tbody = document.getElementById("usersTbody");
+    tbody.innerHTML = "";
+    db.users.forEach(function(u){
+      var tr = document.createElement("tr");
+      var tdName = document.createElement("td"); tdName.textContent = u.name;
+      var tdUser = document.createElement("td"); tdUser.textContent = u.username; tdUser.dir = "ltr"; tdUser.style.textAlign = "right";
+      var tdEmail = document.createElement("td"); tdEmail.textContent = u.email; tdEmail.dir = "ltr"; tdEmail.style.textAlign = "right";
+      var tdRole = document.createElement("td");
+      var badge = document.createElement("span"); badge.className = "role-badge " + u.role; badge.textContent = roleLabel(u.role);
+      tdRole.appendChild(badge);
+      var tdAction = document.createElement("td");
+      var select = document.createElement("select"); select.className = "role-select";
+      ["customer","vendor","operator","admin"].forEach(function(r){
+        var opt = document.createElement("option");
+        opt.value = r; opt.textContent = roleLabel(r);
+        if(r === u.role) opt.selected = true;
+        select.appendChild(opt);
+      });
+      select.addEventListener("change", function(){
+        u.role = select.value;
+        persist();
+        toast("نقش "+u.name+" به «"+roleLabel(u.role)+"» تغییر کرد");
+        renderAdmin(user);
+        var cu = currentUser();
+        if(cu && cu.id === u.id){ renderApp(); }
+      });
+      tdAction.appendChild(select);
+      tr.appendChild(tdName); tr.appendChild(tdUser); tr.appendChild(tdEmail); tr.appendChild(tdRole); tr.appendChild(tdAction);
+      tbody.appendChild(tr);
+    });
+
+    var jobsTbody = document.getElementById("allJobsTbody");
+    jobsTbody.innerHTML = "";
+    db.jobs.forEach(function(j){
+      var count = db.applications.filter(function(a){ return a.jobId === j.id; }).length;
+      var tr = document.createElement("tr");
+      var tdTitle = document.createElement("td"); tdTitle.textContent = j.title;
+      var tdVendor = document.createElement("td"); tdVendor.textContent = vendorName(j.vendorId);
+      var tdStatus = document.createElement("td");
+      var tag = document.createElement("span"); tag.className = "tag " + (j.status==="open"?"open":"closed"); tag.textContent = j.status==="open"?"باز":"بسته";
+      tdStatus.appendChild(tag);
+      var tdCount = document.createElement("td"); tdCount.textContent = toFa(count);
+      var tdDel = document.createElement("td");
+      var delBtn = document.createElement("button"); delBtn.className = "btn sm danger"; delBtn.type = "button"; delBtn.textContent = "حذف";
+      delBtn.addEventListener("click", function(){
+        db.jobs = db.jobs.filter(function(job){ return job.id !== j.id; });
+        db.applications = db.applications.filter(function(a){ return a.jobId !== j.id; });
+        persist();
+        renderAdmin(user);
+        renderBrowse(user);
+        renderMarketing();
+      });
+      tdDel.appendChild(delBtn);
+      tr.appendChild(tdTitle); tr.appendChild(tdVendor); tr.appendChild(tdStatus); tr.appendChild(tdCount); tr.appendChild(tdDel);
+      jobsTbody.appendChild(tr);
+    });
+  }
+
+  /* ---------- boot ---------- */
+  renderMarketing();
+  var existingUser = currentUser();
+  if(existingUser){ enterApp(); }
+})();
+</script>
+</body>
+</html>
